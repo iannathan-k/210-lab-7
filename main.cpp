@@ -19,15 +19,15 @@ int main() {
     *(array + 3) = "David";
     *(array + 4) = "Eve";
 
-    string* new_array = reverseArray(array);
-
     cout << "Original array: ";
     displayArray(array);
+
+    reverseArray(array);
+
     cout << "Reversed array: ";
-    displayArray(new_array);
+    displayArray(array);
 
     delete[] array;
-    delete[] new_array;
 
     return 0;
 }
@@ -36,14 +36,15 @@ int main() {
 // arguments: string* ptr, pointing to the old array
 // returns: string* new_array, pointing to the modified array
 string* reverseArray(string* ptr) {
-    string* new_array = new string[SIZE];
 
-    for (int i = 0; i < SIZE; i++) {
-        // ptr + SIZE - i - 1, accesses the i-th element from the end
-        *(new_array + i) = *(ptr + SIZE - i - 1);
+    // Swap nth element with nth from end element, till the middle of the array
+    for (int i = 0; i < SIZE / 2; i++) {
+        string temp = *(ptr + i);
+        *(ptr + i) = *(ptr + SIZE - i - 1); // ptr + SIZE - i - 1, accesses the i-th element from the end
+        *(ptr + SIZE - i - 1) = temp;
     }
 
-    return new_array;
+    return ptr;
 }
 
 // displayArray() prints out the array in a single line
